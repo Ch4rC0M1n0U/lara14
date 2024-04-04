@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Filament\Resources\CellResource\Pages;
+
+use App\Filament\Resources\CellResource;
+use Filament\Actions;
+use Filament\Resources\Pages\ListRecords;
+
+class ListCells extends ListRecords
+{
+    protected static string $resource = CellResource::class;
+
+    protected static ?string $title = 'Listing des cellules';
+    protected ?string $heading = 'Listing des cellules';
+    protected ?string $subheading = 'Liste des cellules enregistrées dans le complexe pénitentiaire';
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            Actions\CreateAction::make(),
+        ];
+    }
+}

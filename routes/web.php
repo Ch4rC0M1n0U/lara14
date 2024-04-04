@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/test', function () {
+    return view('test');
+});
 
 Route::middleware([
     'auth:sanctum',
@@ -14,4 +17,7 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+    Route::get('/test', function () {
+        return view('test');
+    })->name('test');
 });
