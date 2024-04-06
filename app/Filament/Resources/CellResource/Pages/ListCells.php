@@ -4,6 +4,7 @@ namespace App\Filament\Resources\CellResource\Pages;
 
 use App\Filament\Resources\CellResource;
 use Filament\Actions;
+use Filament\Actions\Modal\Actions\Action;
 use Filament\Resources\Pages\ListRecords;
 
 class ListCells extends ListRecords

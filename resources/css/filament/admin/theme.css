@@ -11,18 +11,23 @@
 
 @layer components {
     .fi-sidebar-header {
-        @apply !bg-primary-100;
+        @apply !bg-blue-gray-600 !shadow-outline !shadow-blue-gray-300;
     }
     
     .fi-sidebar {
-        @apply !bg-white border-r border-gray-200;
+        @apply !bg-blue-gray-50 border-r border-none !shadow-inner !shadow-blue-gray-300;
+    }
 
+    .fi-topbar nav {
+        @apply !bg-gradient-to-r from-blue-gray-600 to-blue-gray-200;
+        @apply !border-y border-none;
+        @apply border-l border-none;
+        @apply !shadow-outline !shadow-blue-gray-300;
+        
     }
     
-    .fi-topbar nav {
-        @apply !bg-gradient-to-r from-primary-100 to-primary-50;
-        @apply border-l border-primary-200;
-        
+    .fi-layout {
+        @apply !bg-gray-50;
     }
 
     .fi-simple-layout {

@@ -32,24 +32,25 @@ class AdminPanelProvider extends PanelProvider
             ->authGuard('web')
             ->login()
             ->brandName('Pegasus')
-            ->brandLogoHeight('2.5rem')
+            ->brandLogoHeight('2.9rem')
             ->brandLogo(asset('images/logo.svg'))
+            ->darkMode(false)
             ->sidebarCollapsibleOnDesktop()
             ->breadcrumbs(false)
             ->favicon(asset('images/favicon.png'))
             ->viteTheme('resources/css/filament/admin/theme.css')
-            ->font('Poppins')
+            ->font('Montserrat')
             ->navigationGroups([
                 'Gestion de la détention',
                 'Configuration',
             ])
             ->colors([
-                'danger' => Color::Rose,
-                'gray' => Color::Neutral,
-                'info' => Color::Indigo,
-                'primary' => Color::Blue,
-                'success' => Color::Emerald,
-                'warning' => Color::Orange,
+                'danger' => Color::hex('#EF5350'),
+                'gray' => Color::hex('#ECEFF1'),
+                'info' => Color::hex('#E3F2FD'),
+                'primary' => Color::hex('#1565C0'),
+                'success' => Color::hex('#8BC34A'),
+                'warning' => Color::hex('#FFA726'),
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')

@@ -9,13 +9,20 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use App\Models\Post;
 use Filament\Actions\Action;
+use Filament\Actions\ReplicateAction;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Split;
-use Filament\Tables\Table;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\TagsInput;
+use Filament\Support\Enums\ActionSize;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Actions\ActionGroup;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\ViewAction;
+use Filament\Tables\Table;
+
 
 class CellResource extends Resource
 {
@@ -102,22 +109,32 @@ class CellResource extends Resource
                 Tables\Columns\TextColumn::make('CellStat')
                     ->sortable()
                     ->label('Statut')
-                    ->badge(),
-
-                
+                    ->badge(),             
                 
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                ActionGroup::make([
+                    ViewAction::make(),
+                    EditAction::make(),
+                    ReplicateAction::make(),
+                    DeleteAction::make()
+                    ->requiresConfirmation(),
+                ])
+                ->button()
+                ->color('primary')
+                ->size(ActionSize::Small),
+                
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Tables\Actions\DeleteBulkAction::make(),
+                ])->button()
+                ->color('primary')
+                ->size(ActionSize::Small),
+                
             ]);
     }
 
