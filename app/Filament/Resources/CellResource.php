@@ -23,6 +23,8 @@ class CellResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-lock-closed';
 
+    protected static ?string $title = 'Cellule(s)';
+
     protected static ?string $navigationLabel = 'Cellule(s)';
     protected static ?string $navigationGroup = 'Configuration';
     protected static ?string $navigationBadgeTooltip = 'Liste des détenu(e)s et gestion';

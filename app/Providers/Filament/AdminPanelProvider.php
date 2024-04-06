@@ -33,7 +33,7 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogoHeight('2.5rem')
             ->brandLogo(asset('images/logo.svg'))
             ->sidebarCollapsibleOnDesktop()
-            ->breadcrumbs(false)
+            ->breadcrumbs(true)
             ->favicon(asset('images/favicon.png'))
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->font('Poppins')
