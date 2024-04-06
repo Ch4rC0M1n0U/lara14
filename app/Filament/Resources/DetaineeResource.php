@@ -14,7 +14,17 @@ class DetaineeResource extends Resource
 {
     protected static ?string $model = Detainee::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-key';
+    protected static ?string $navigationLabel = 'Détenu(s)';
+    protected static ?string $navigationGroup = 'Gestion de la détention';
+    protected static ?string $navigationBadgeTooltip = 'Liste des détenu(e)s et gestion';
+
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
+
 
     public static function form(Form $form): Form
     {

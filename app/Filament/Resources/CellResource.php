@@ -4,18 +4,18 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\CellResource\Pages;
 use App\Models\Cell;
-use Filament\Forms\Components\Placeholder;
-use Filament\Forms\Components\Repeater;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use App\Models\Post;
+use Filament\Actions\Action;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Split;
 use Filament\Tables\Table;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\TagsInput;
+use Filament\Tables\Columns\TextColumn;
 
 class CellResource extends Resource
 {
@@ -23,11 +23,11 @@ class CellResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-lock-closed';
 
-    protected static ?string $title = 'Cellule(s)';
+    protected static ?string $recordTitleAttribute = 'name';
 
     protected static ?string $navigationLabel = 'Cellule(s)';
     protected static ?string $navigationGroup = 'Configuration';
-    protected static ?string $navigationBadgeTooltip = 'Liste des détenu(e)s et gestion';
+    protected static ?string $navigationBadgeTooltip = 'Liste des cellules et gestion';
 
     public static function getNavigationBadge(): ?string
     {
@@ -62,7 +62,7 @@ class CellResource extends Resource
                                 ->required(),
                             TagsInput::make('CellStat')
                                 ->label('Statut de la cellule')
-                                ->suggestions(['Libre', 'Occupée', 'En nettoyage', 'En réparation'])
+                                ->suggestions(['Libre', 'Occupée', 'En nettoyage', 'En réparation', 'Hors service'])
                                 ->required()
                                 ->hiddenOn('edit'),
                         ])->grow(false),
@@ -103,6 +103,8 @@ class CellResource extends Resource
                     ->sortable()
                     ->label('Statut')
                     ->badge(),
+
+                
                 
             ])
             ->filters([

@@ -12,7 +12,7 @@ class ListCells extends ListRecords
 
     protected static ?string $title = 'Listing des cellules';
     protected ?string $heading = 'Listing des cellules';
-    protected ?string $subheading = 'Liste des cellules enregistrées dans le complexe pénitentiaire';
+    protected ?string $subheading = 'Liste des cellules existantes dans le complexe pénitentiaire et leurs configurations.';
 
     protected function getHeaderActions(): array
     {
