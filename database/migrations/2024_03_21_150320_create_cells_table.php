@@ -25,6 +25,10 @@ return new class () extends Migration {
             ->default(false);
             $table->json('CellStat')
             ->nullable();
+            $table->string('created_by')
+            ->nullable();
+            $table->string('updated_by')
+            ->nullable();
         });
     }
 
