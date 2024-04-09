@@ -23,7 +23,9 @@ return new class () extends Migration {
             ->nullable();
             $table->boolean('CellMinor')
             ->default(false);
-            $table->json('CellStat')
+            $table->integer('CellRest')
+            ->nullable(true);
+            $table->string('CellStat')
             ->nullable();
             $table->string('created_by')
             ->nullable();

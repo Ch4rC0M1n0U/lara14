@@ -14,16 +14,13 @@ class Cell extends Model
         'CellType',
         'CellMax',
         'CellMinor',
-        'CellStat'
+        'CellStat', 
+        'CellRest'
         ];
 
     protected $casts = [
         'CellMinor' => 'boolean',
-        'CellStat' => 'json'
     ];
-
-
-
     public function Cell(): HasMany
     {
         return $this->hasMany(Cell::class);

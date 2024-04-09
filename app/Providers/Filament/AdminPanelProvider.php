@@ -18,8 +18,6 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
-use Filament\Navigation\NavigationGroup;
-
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -36,12 +34,13 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogo(asset('images/logo.png'))
             ->darkMode(false)
             ->sidebarCollapsibleOnDesktop()
-            ->breadcrumbs(false)
+            ->breadcrumbs(true)
             ->favicon(asset('images/favicon.png'))
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->font('Montserrat')
             ->navigationGroups([
                 'Gestion de la détention',
+                'Gestion des consignes',
                 'Configuration',
             ])
             ->colors([

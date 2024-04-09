@@ -2,13 +2,17 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\DetaineeResource\Pages;
-use App\Models\Detainee;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
+use App\Models\Cell;
 use Filament\Tables;
+use App\Models\Detainee;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use App\Filament\Resources\DetaineeResource\Pages;
 
 class DetaineeResource extends Resource
 {
@@ -31,22 +35,52 @@ class DetaineeResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('firstname')
+                    ->label('Prénom')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('lastname')
+                    ->label('Nom')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\DatePicker::make('birthdate')
+                    ->label('Date de naissance')
+                    ->date('d/m/Y')
+                    ->native(false)
+                    ->maxDate(now())                
+                    ->required()
+                    ->validationMessages([
+                        'maxDate' => 'Vérifier votre date de naissance']),
+                Forms\Components\Select::make('sexe')
+                    ->options(
+                        ['Masculin' => 'Masculin', 
+                        'Feminin' => 'Feminin',
+                        'Non-Binaire' => 'Non-Binaire'])
                     ->required(),
-                Forms\Components\TextInput::make('sexe')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('cell_id')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('service_id')
-                    ->required()
-                    ->numeric(),
+                Forms\Components\Select::make('cell_id')
+                    ->label('Cellule')
+                    ->live()
+                    ->relationship('cell', 'id')
+                    ->options(function () {
+                        return Cell::where('CellStat', '"Libre"')
+                        ->where('CellRest', '>', 0)
+                        ->selectRaw("CONCAT(CellNum, ' - ', CellType, ' - ', IF(CellMinor = 1, 'Mineur', 'Majeur')) as display, id")
+                        ->pluck('display', 'id')
+                        ->toArray();
+                    })
+                    ->required(),
+                TextInput::make('PlaceRestante')
+                    ->live(),
+                Select::make('service_id')
+                    ->relationship('service', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->nullable()
+                        ->createOptionForm([
+                            Forms\Components\TextInput::make('name')
+                            ->required()
+                            ->label('Nom du service ou de l\'unité')
+                            ->maxLength(255),                   
+                        ]),
                 Forms\Components\TextInput::make('priv_lib_id')
                     ->required()
                     ->numeric(),

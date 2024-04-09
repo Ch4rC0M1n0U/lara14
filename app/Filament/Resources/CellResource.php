@@ -3,41 +3,34 @@
 namespace App\Filament\Resources;
 
 use App\Models\Cell;
-use App\Models\Post;
-use App\Models\User;
 use Filament\Tables;
+use Filament\Forms\Get;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Tables\Actions\Action;
 use Filament\Forms\Components\Split;
-use Filament\Actions\ReplicateAction;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Section;
 use Filament\Support\Enums\ActionSize;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ViewAction;
-use Filament\Tables\Columns\IconColumn;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\TextInput;
+use Filament\Notifications\Notification;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\DeleteAction;
-use Filament\Tables\Actions\BulkActionGroup;
-use Filament\Tables\Actions\DeleteBulkAction;
 use App\Filament\Resources\CellResource\Pages;
-use App\Filament\Resources\CellResource\Pages\EditCell;
-use App\Filament\Resources\CellResource\Pages\ViewCell;
-use App\Filament\Resources\CellResource\Pages\ListCells;
-use App\Filament\Resources\CellResource\Pages\CreateCell;
-use Filament\Notifications\Notification;
 
 class CellResource extends Resource
 {
     protected static ?string $model = Cell::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-lock-closed';
+    protected static ?string $modelLabel = 'Cellule';
+    protected static ?string $pluralModelLabel = 'Cellules';
 
     protected static ?string $recordTitleAttribute = 'name';
 
@@ -50,6 +43,11 @@ class CellResource extends Resource
         return static::getModel()::count();
     }
 
+    public static function getBreadcrumb(): string
+    {
+        return 'Gestion des Cellules';
+    }
+
     public static function form(Form $form): Form
     {
 
@@ -59,7 +57,7 @@ class CellResource extends Resource
                         Section::make('Configuration de la cellule')
                         ->description('Veuillez remplir les informations suivantes pour configurer la cellule.')
                         ->icon('heroicon-o-adjustments-vertical')
-                        ->schema([                  
+                        ->schema([
                             TextInput::make('CellNum')
                                 ->label('Numéro de cellule')
                                 ->live()
@@ -82,22 +80,33 @@ class CellResource extends Resource
                             TextInput::make('CellMax')
                                 ->label('Nombre de places')
                                 ->default(1)
+                                ->live()
                                 ->required()
                                 ->numeric(),
+                            Hidden::make('CellRest')
+                            ->default(fn(Get $get): int => $get('CellMax')),
                         ]),
-                        Section::make([ 
+                        Section::make([
                             Toggle::make('CellMinor')
                                 ->label('Cellule mineure')
                                 ->required(),
-                            TagsInput::make('CellStat')
+                            Select::make('CellStat')
                                 ->label('Statut de la cellule')
-                                ->default(['Libre'])
-                                ->suggestions(['Libre', 'Occupée', 'En nettoyage', 'En réparation', 'Hors service'])
+                                ->default('Libre')
+                                ->options([
+                                    'Libre' => 'Libre',
+                                    'Occupée' => 'Occupée',
+                                    'En nettoyage' => 'En nettoyage',
+                                    'En réparation' => 'En réparation',
+                                    'Hors service' => 'Hors service'
+                                ])
                                 ->required()
                                 ->hiddenOn('edit'),
                         ])->grow(false),
-                    ])->from('md'),                 
-                ])->columns(1);
+                    ])->from('md'),
+                ])->columns(1)
+                ;
+                
     }
 
     public static function table(Table $table): Table
@@ -105,7 +114,7 @@ class CellResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
+                    ->since()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
@@ -126,14 +135,10 @@ class CellResource extends Resource
                     ->sortable()
                     ->label('Places')
                     ->toggleable(isToggledHiddenByDefault: true),
-                    
                 Tables\Columns\IconColumn::make('CellMinor')
                     ->boolean()
                     ->width('1%')
                     ->alignEnd()
-
-
-
                     ->label('Minorité'),
                 Tables\Columns\TextColumn::make('CellStat')
                     ->sortable()
@@ -142,56 +147,63 @@ class CellResource extends Resource
                     ->color(fn (string $state): string => match ($state) {
                         'Libre' => 'success',
                         'Occupée' => 'danger',
-                        'En nettoyage' => 'info',
+                        'En nettoyage' => 'primary',
                         'En réparation' => 'warning',
                         'Hors service' => 'gray',
-                    }),             
-                
+                    })
+                    ->icon(fn (string $state): string => match ($state) {
+                        'Libre' => 'heroicon-o-check',
+                        'Occupée' => 'heroicon-o-no-symbol',
+                        'En nettoyage' => 'heroicon-o-truck',
+                        'En réparation' => 'heroicon-o-light-bulb',
+                        'Hors service' => 'heroicon-o-x-circle',
+                    }),
+
             ])
-            
+
             ->filters([
-                //
+                    //
             ])
             ->actions([
-                ActionGroup::make([
-                    ViewAction::make(),
-                    EditAction::make(),
-                    Action::make('ModStat')
-                    ->label('Modification de statut')
-                    ->icon('heroicon-o-arrow-left-circle')
-                    ->color('warning')
-                    ->form([
-                        Select::make('CellStat')
-                            ->label('Statut de la cellule')
-                            ->options([
-                                'Libre' => 'Libre', 
-                                'Occupée' => 'Occupée', 
-                                'En nettoyage' => 'En nettoyage', 
-                                'En réparation' => 'En réparation', 
-                                'Hors service' => 'Hors service'
-                            ])                            
-                            ->default(function (Cell $record) {
-                                return $record->CellStat;
-                            })
-                    ])
-                    ->action(function (Cell $record, array $data): void {
+                    ActionGroup::make([
+                        ViewAction::make(),
+                        EditAction::make(),
+                        Action::make('ModStat')
+                        ->label('Modification de statut')
+                        ->icon('heroicon-o-arrow-left-circle')
+                        ->color('warning')
+                        ->form([
+                            Select::make('CellStat')
+                                ->label('Statut de la cellule')
+                                ->options([
+                                    'Libre' => 'Libre',
+                                    'Occupée' => 'Occupée',
+                                    'En nettoyage' => 'En nettoyage',
+                                    'En réparation' => 'En réparation',
+                                    'Hors service' => 'Hors service'
+                                ])
+                                ->default(function (Cell $record) {
+                                    return $record->CellStat;
+                                })
+                        ])
+                        ->action(function (Cell $record, array $data): void {
                             $record->CellStat = $data['CellStat'];
                             $record->save();
 
-                    Notification::make()
-                        ->title('Le statut de la cellule a été modifié avec succès.')
-                        ->success()
-                        ->send();
-                    
-                    }),
-                    DeleteAction::make()
-                    ->requiresConfirmation(),
-                    
-                ])
-                ->button()
-                ->color('primary')
-                ->size(ActionSize::Small),
-                
+                            Notification::make()
+                                ->title('Le statut de la cellule a été modifié avec succès.')
+                                ->success()
+                                ->send();
+
+                        }),
+                        DeleteAction::make()
+                        ->requiresConfirmation(),
+
+                    ])
+                    ->button()
+                    ->color('primary')
+                    ->size(ActionSize::Small),
+
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -199,9 +211,10 @@ class CellResource extends Resource
                 ])->button()
                 ->color('primary')
                 ->size(ActionSize::Small),
-                
+
             ]);
     }
+
     public static function getRelations(): array
     {
         return [
@@ -213,9 +226,9 @@ class CellResource extends Resource
     {
         return [
             'index' => Pages\ListCells::route('/'),
-            'create' => Pages\CreateCell::route('/create'),
-            'view' => Pages\ViewCell::route('/{record}'),
-            'edit' => Pages\EditCell::route('/{record}/edit'),
+            //'create' => Pages\CreateCell::route('/create'),
+            //'view' => Pages\ViewCell::route('/{record}'),
+            //'edit' => Pages\EditCell::route('/{record}/edit'),
         ];
     }
 }
