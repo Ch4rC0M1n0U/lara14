@@ -150,6 +150,7 @@ class CellResource extends Resource
                         'En nettoyage' => 'primary',
                         'En réparation' => 'warning',
                         'Hors service' => 'gray',
+                        default => 'gray', // cas par défaut
                     })
                     ->icon(fn (string $state): string => match ($state) {
                         'Libre' => 'heroicon-o-check',
@@ -157,6 +158,7 @@ class CellResource extends Resource
                         'En nettoyage' => 'heroicon-o-truck',
                         'En réparation' => 'heroicon-o-light-bulb',
                         'Hors service' => 'heroicon-o-x-circle',
+                        default => 'heroicon-o-question-mark-circle', // cas par défaut
                     }),
 
             ])

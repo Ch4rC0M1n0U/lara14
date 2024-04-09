@@ -61,7 +61,7 @@ class DetaineeResource extends Resource
                     ->live()
                     ->relationship('cell', 'id')
                     ->options(function () {
-                        return Cell::where('CellStat', '"Libre"')
+                        return Cell::where('CellStat', 'Libre')
                         ->where('CellRest', '>', 0)
                         ->selectRaw("CONCAT(CellNum, ' - ', CellType, ' - ', IF(CellMinor = 1, 'Mineur', 'Majeur')) as display, id")
                         ->pluck('display', 'id')
@@ -82,8 +82,7 @@ class DetaineeResource extends Resource
                             ->maxLength(255),                   
                         ]),
                 Forms\Components\TextInput::make('priv_lib_id')
-                    ->required()
-                    ->numeric(),
+                    ->required(),
                 Forms\Components\TextInput::make('SSType')
                     ->required()
                     ->maxLength(255),
