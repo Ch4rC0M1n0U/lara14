@@ -13,6 +13,7 @@ use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use App\Filament\Resources\DetaineeResource\Pages;
+use App\Models\PrivLib;
 
 class DetaineeResource extends Resource
 {
@@ -22,6 +23,11 @@ class DetaineeResource extends Resource
     protected static ?string $navigationLabel = 'Détenu(s)';
     protected static ?string $navigationGroup = 'Gestion de la détention';
     protected static ?string $navigationBadgeTooltip = 'Liste des détenu(e)s et gestion';
+
+    protected static ?string $modelLabel = 'Détenu';
+    protected static ?string $pluralModelLabel = 'Détenus';
+
+    
 
 
     public static function getNavigationBadge(): ?string
@@ -34,12 +40,50 @@ class DetaineeResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('firstname')
-                    ->label('Prénom')
+                Forms\Components\TextInput::make('RplNum')
+                    ->label('Numéro du Registre de privation de liberté')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(50),    
+                Forms\Components\Select::make('cell_id')
+                    ->label('Cellule')
+                    ->live()
+                    ->relationship('cell', 'id')
+                    ->options(function () {
+                        return Cell::where('CellStat', 'Libre')
+                        ->where('CellRest', '>', 0)
+                        ->selectRaw("CONCAT(CellNum, ' - ', CellType, ' - ', IF(CellMinor = 1, 'Mineur', 'Majeur')) as display, id")
+                        ->pluck('display', 'id')
+                        ->toArray();
+                    })
+                    ->required(),
+                Select::make('service_id')
+                    ->relationship('service', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->nullable()
+                        ->createOptionForm([
+                            Forms\Components\TextInput::make('name')
+                            ->required()
+                            ->label('Nom du service ou de l\'unité')
+                            ->maxLength(255),                   
+                        ]),
+                Forms\Components\Select::make('SSType')
+                    ->label('Incident')
+                    ->options(
+                        ['Personne malade' => 'Personne malade', 
+                        'Ivresse publique' => 'Ivresse publique',
+                        'Trouble de l\'OP' => 'Trouble de l\'OP',
+                        'Rebéllion' => 'Rebéllion',
+                        'Maladie Transmissible' => 'Maladie Transmissible',
+                        'Antécédents' => 'Antécédents',
+                        'E.D.S.' => 'E.D.S.',
+                        'Autre' => 'Autre']),
                 Forms\Components\TextInput::make('lastname')
                     ->label('Nom')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('firstname')
+                    ->label('Prénom')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\DatePicker::make('birthdate')
@@ -56,39 +100,18 @@ class DetaineeResource extends Resource
                         'Feminin' => 'Feminin',
                         'Non-Binaire' => 'Non-Binaire'])
                     ->required(),
-                Forms\Components\Select::make('cell_id')
-                    ->label('Cellule')
-                    ->live()
-                    ->relationship('cell', 'id')
+                TextInput::make('PlaceRestante')
+                    ->live(),
+                Forms\Components\Select::make('priv_lib_id')
+                    ->label('Durée max. de privation de liberté')
+                    ->required()
+                    ->relationship('privlib', 'id')
                     ->options(function () {
-                        return Cell::where('CellStat', 'Libre')
-                        ->where('CellRest', '>', 0)
-                        ->selectRaw("CONCAT(CellNum, ' - ', CellType, ' - ', IF(CellMinor = 1, 'Mineur', 'Majeur')) as display, id")
+                        return PrivLib::selectRaw("CONCAT(TypeArrest, ' - ', MaxHour) as display, id")
                         ->pluck('display', 'id')
                         ->toArray();
                     })
-                    ->required(),
-                TextInput::make('PlaceRestante')
-                    ->live(),
-                Select::make('service_id')
-                    ->relationship('service', 'name')
-                    ->searchable()
-                    ->preload()
-                    ->nullable()
-                        ->createOptionForm([
-                            Forms\Components\TextInput::make('name')
-                            ->required()
-                            ->label('Nom du service ou de l\'unité')
-                            ->maxLength(255),                   
-                        ]),
-                Forms\Components\TextInput::make('priv_lib_id')
-                    ->required(),
-                Forms\Components\TextInput::make('SSType')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('MaxPL')
-                    ->required()
-                    ->maxLength(255),
+                    ->preload(),
                 Forms\Components\TextInput::make('liberation_id')
                     ->required()
                     ->numeric(),
@@ -97,10 +120,7 @@ class DetaineeResource extends Resource
                     ->numeric(),
                 Forms\Components\Toggle::make('isolement')
                     ->required(),
-                Forms\Components\TextInput::make('RplNum')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\Toggle::make('Salduz')
+                Forms\Components\Select::make('Salduz')
                     ->required(),
                 Forms\Components\TextInput::make('DevRest')
                     ->required()

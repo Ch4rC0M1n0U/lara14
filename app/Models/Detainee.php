@@ -16,6 +16,13 @@ class Detainee extends Model
         return $this->belongsTo(Service::class);
     }
 
+    public function PrivLib(): BelongsTo
+    {
+        return $this->belongsTo(PrivLib::class);
+    }
+
+    protected $guarded = ['id'];
+
     protected $fillable = [
         'firstname',
         'lastname',
@@ -36,6 +43,7 @@ class Detainee extends Model
         'user_created',
         'contention_id',
         'bac',
+        'salduz',
         'Prohibe',
         'incident_id',
         'EqCharge',
@@ -49,7 +57,6 @@ class Detainee extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'isolement' => 'boolean',
-        'Salduz' => 'boolean',
         'Audition' => 'boolean',
         'PrintTrypt' => 'boolean',
         'SurvCam' => 'boolean',

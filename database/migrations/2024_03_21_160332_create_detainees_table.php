@@ -21,57 +21,76 @@ return new class () extends Migration {
                 ->constrained('cells')
                 ->unique()
                 ->NoActionOnUpdate()
-                ->NoActionOnDelete();
+                ->NoActionOnDelete()
+                ->required();
             $table->foreignId('service_id')
                 ->constrained('services')
                 ->NoActionOnUpdate()
-                ->NoActionOnDelete();
+                ->NoActionOnDelete()
+                ->required();
             $table->foreignId('priv_lib_id')
                 ->constrained()
                 ->NoActionOnUpdate()
-                ->NoActionOnDelete();
-            $table->string('SSType');
-            $table->string('MaxPL');
+                ->NoActionOnDelete()
+                ->required();
+            $table->string('SSType')
+                ->nullable();
             $table->foreignId('liberation_id')
                 ->constrained()
                 ->NoActionOnUpdate()
-                ->NoActionOnDelete();
+                ->NoActionOnDelete()
+                ->nullable();
             $table->foreignId('trusted_contact_id')
                 ->constrained()
                 ->NoActionOnUpdate()
-                ->NoActionOnDelete();
+                ->NoActionOnDelete()
+                ->nullable();
             $table->boolean('isolement')
                 ->default(false);
-            $table->string('RplNum');
-            $table->boolean('Salduz')
-                ->default(false);
-            $table->string('DevRest');
+            $table->string('RplNum')
+            ->required();
+            $table->string('Salduz')
+                ->nullable();
+            $table->string('DevRest')
+                ->nullable();
             $table->foreignId('notice_id')
                 ->constrained()
                 ->NoActionOnUpdate()
-                ->NoActionOnDelete();
+                ->NoActionOnDelete()
+                ->nullable();
             $table->string('user_created')
-                ->get_current_user();
-            $table->boolean('Audition')->default(false);
-            $table->boolean('PrintTrypt')->default(false);
+                ->nullable();
+            $table->boolean('Audition')
+                ->default(false);
+            $table->boolean('PrintTrypt')
+                ->default(false);
             $table->foreignId('contention_id')
                 ->constrained()
                 ->NoActionOnUpdate()
-                ->NoActionOnDelete();
-            $table->string('bac');
-            $table->string('Prohibe');
+                ->NoActionOnDelete()
+                ->nullable();
+            $table->string('bac')
+                ->nullable();
+            $table->string('Prohibe')
+                ->nullable();
             $table->foreignId('incident_id')
                 ->constrained()
                 ->NoActionOnUpdate()
-                ->NoActionOnDelete();
-            $table->string('EqCharge');
-            $table->string('Avocate');
-            $table->string('ProhiValImp');
-            $table->string('SurvCam');
+                ->NoActionOnDelete()
+                ->nullable();
+            $table->string('EqCharge')
+                ->nullable();
+            $table->boolean('Avocate')
+                ->default(false);
+            $table->boolean('ProhiValImp')
+                ->default(false);
+            $table->boolean('SurvCam')
+                ->default(false);
             $table->foreignId('medical_id')
                 ->constrained()
                 ->NoActionOnUpdate()
-                ->NoActionOnDelete();
+                ->NoActionOnDelete()
+                ->nullable();
         });
     }
 

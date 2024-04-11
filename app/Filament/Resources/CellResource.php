@@ -28,11 +28,9 @@ class CellResource extends Resource
 {
     protected static ?string $model = Cell::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-lock-closed';
+    protected static ?string $navigationIcon = 'heroicon-o-table-cells';
     protected static ?string $modelLabel = 'Cellule';
     protected static ?string $pluralModelLabel = 'Cellules';
-
-    protected static ?string $recordTitleAttribute = 'name';
 
     protected static ?string $navigationLabel = 'Cellule(s)';
     protected static ?string $navigationGroup = 'Configuration';

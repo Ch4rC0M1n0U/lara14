@@ -12,7 +12,6 @@ return new class () extends Migration {
     {
         Schema::create('priv_libs', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->string('TypeArrest');
             $table->string('MaxHour');
         });

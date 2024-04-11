@@ -17,10 +17,10 @@ return new class () extends Migration {
             $table->boolean('exterior')->default(false);
             $table->boolean('h24')->default(false);
             $table->string('street')->nullable(true);
-            $table->string('street_number')->nullable(true);
+            $table->integer('street_number')->nullable(true);
             $table->string('city')->nullable(true);
-            $table->integer('zip')->nullable(true);
-            $table->integer('phone')->nullable(true);
+            $table->string('zip')->nullable(true);
+            $table->string('phone')->nullable(true);
             $table->string('email')->nullable(true);
             $table->string('contact')->nullable(true);
             $table->string('hierarchy')->nullable(true);

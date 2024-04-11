@@ -38,4 +38,16 @@
     .fi-simple-main {
         @apply !shadow-lg;
     }
+
+    .fi-sidebar-item-label {
+        @apply !text-light-blue-800;
+    }
+
+    .fi-sidebar-item-icon {
+        @apply !text-light-blue-600;
+    }
+
+    .fi-sidebar-group-label {
+        @apply !text-light-blue-900;
+    }
 }
