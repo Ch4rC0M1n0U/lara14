@@ -13,7 +13,7 @@ return new class () extends Migration {
         Schema::create('liberations', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->dateTime('liberationDateHour');
+            $table->dateTime('liberationDateHour')->nullable();
             $table->boolean('dev_Before')->default(false);
             $table->boolean('avis_Before')->default(false);
             $table->boolean('mat_Before')->default(false);

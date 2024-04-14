@@ -18,7 +18,7 @@ return new class () extends Migration {
             $table->string('phone');
             $table->string('email');
             $table->string('relationType');
-            $table->string('cypeOfContact');
+            $table->string('TypeOfContact');
             $table->dateTime('contact_DateHour');
             $table->boolean('contactOk')->default(false);
             $table->boolean('contactRefused')->default(false);

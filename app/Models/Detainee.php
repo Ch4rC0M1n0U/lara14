@@ -21,6 +21,16 @@ class Detainee extends Model
         return $this->belongsTo(PrivLib::class);
     }
 
+    public function Liberation(): BelongsTo
+    {
+        return $this->belongsTo(Liberation::class);
+    }
+
+    public function TrustedContact(): BelongsTo
+    {
+        return $this->belongsTo(TrustedContact::class);
+    }
+
     protected $guarded = ['id'];
 
     protected $fillable = [
@@ -32,7 +42,6 @@ class Detainee extends Model
         'service_id',
         'priv_lib_id',
         'SSType',
-        'MaxPL',
         'liberation_id',
         'trusted_contact_id',
         'created_at',
@@ -47,8 +56,6 @@ class Detainee extends Model
         'Prohibe',
         'incident_id',
         'EqCharge',
-        'Avocate',
-        'ProhiValImp',
         'medical_id',
     ];
 
@@ -60,7 +67,9 @@ class Detainee extends Model
         'Audition' => 'boolean',
         'PrintTrypt' => 'boolean',
         'SurvCam' => 'boolean',
-        'isolement' => 'boolean',        
+        'isolement' => 'boolean',   
+        'Avocate' => 'boolean',
+        'ProhiValImp' => 'boolean',     
     ];
 
     protected $boolean = [
@@ -69,6 +78,8 @@ class Detainee extends Model
         'Audition',
         'PrintTrypt',
         'SurvCam',
+        'Avocate',
+        'ProhiValImp',
     ];
 
 }

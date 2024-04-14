@@ -5,21 +5,27 @@ namespace App\Filament\Resources;
 use Filament\Forms;
 use Filament\Tables;
 use App\Models\Service;
+use Filament\Forms\Get;
+use Filament\Forms\Set;
 use Filament\Forms\Form;
 use Pages\CreateService;
 use Filament\Tables\Table;
+use Filament\Actions\Action;
 use Filament\Resources\Resource;
+use Dotswan\MapPicker\Fields\Map;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Split;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Fieldset;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Placeholder;
 use App\Filament\Resources\ServiceResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\ServiceResource\RelationManagers;
-use Filament\Tables\Columns\IconColumn;
+
 
 class ServiceResource extends Resource
 {
@@ -30,7 +36,7 @@ class ServiceResource extends Resource
     protected static ?string $pluralModelLabel = 'Services';
 
     protected static ?string $navigationLabel = 'Service(s)';
-    protected static ?string $navigationGroup = 'Configuration';
+    protected static ?string $navigationGroup = 'Gestion de la détention';
     protected static ?string $navigationBadgeTooltip = 'Liste des services et gestion de leurs informations';
 
     public static function getNavigationBadge(): ?string
@@ -71,6 +77,7 @@ class ServiceResource extends Resource
                     Forms\Components\TextInput::make('zip')
                         ->label('Code Postal')
                         ->nullable(),
+                   
                     Fieldset::make('Contact')
                         ->schema([
                     Forms\Components\TextInput::make('phone')

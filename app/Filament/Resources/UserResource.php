@@ -46,6 +46,11 @@ class UserResource extends Resource
                 Forms\Components\TextInput::make('Matricule')
                     ->required()
                     ->maxLength(50),
+                Forms\Components\Select::make('roles')
+                    ->relationship('roles', 'name')
+                    ->multiple()
+                    ->preload()
+                    ->searchable(),
                 Forms\Components\DateTimePicker::make('email_verified_at')
                     ->hiddenOn('edit'),
                 Forms\Components\TextInput::make('password')

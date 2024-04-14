@@ -2,18 +2,23 @@
 
 namespace App\Filament\Resources;
 
+use DateTime;
 use Filament\Forms;
 use App\Models\Cell;
 use Filament\Tables;
+use App\Models\PrivLib;
 use App\Models\Detainee;
 use Filament\Forms\Form;
+use App\Models\Liberation;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Toggle;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\DateTimePicker;
 use App\Filament\Resources\DetaineeResource\Pages;
-use App\Models\PrivLib;
 
 class DetaineeResource extends Resource
 {
@@ -112,15 +117,80 @@ class DetaineeResource extends Resource
                         ->toArray();
                     })
                     ->preload(),
-                Forms\Components\TextInput::make('liberation_id')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('trusted_contact_id')
-                    ->required()
-                    ->numeric(),
+                Forms\Components\Select::make('liberation_id')
+                ->label('Libération')
+                ->relationship('Liberation', 'id')
+                ->preload()
+                ->nullable()
+                    ->createOptionForm([
+                        Forms\Components\DateTimePicker::make('name')
+                        ->required()
+                        ->label('Date et Heure de fin de P.L.')
+                        ->native(false),                   
+                    ]),
+                Forms\Components\Select::make('trusted_contact_id')
+                ->label('Contact de confiance')
+                ->relationship('TrustedContact', 'id')
+                ->searchable()
+                ->preload()
+                ->nullable()
+                    ->createOptionForm([
+                        Forms\Components\TextInput::make('firstname')
+                        ->required()
+                        ->label('Nom du contact de confiance')
+                        ->maxLength(100),  
+                        Forms\Components\TextInput::make('lastname')
+                        ->required()
+                        ->label('Prénom')
+                        ->maxLength(255),      
+                        Forms\Components\TextInput::make('phone')
+                        ->required()
+                        ->label('Téléphone')
+                        ->maxLength(20)
+                        ->tel(),
+                        Forms\Components\TextInput::make('email')
+                        ->label('Email')
+                        ->maxLength(255)
+                        ->email(),
+                        Select::make('relationType')
+                        ->label('Lien')
+                        ->options(
+                            ['Conjoint' => 'Conjoint', 
+                            'Parent' => 'Parent',
+                            'Enfant' => 'Enfant',
+                            'Ami' => 'Ami',
+                            'Connaissance' => 'Connaissance',
+                            'Autre' => 'Autre']),
+                        Select::make('TypeOfContact')
+                        ->label('Type de contact')
+                        ->options(
+                            ['Téléphone' => 'Téléphone', 
+                            'Email' => 'Email',
+                            'Visite' => 'Visite',
+                            'Verbal' => 'Verbal',
+                            'Autre' => 'Autre']),
+                        DateTimePicker::make('contact_DateHour')
+                        ->label('Date et Heure de contact')
+                        ->date('d/m/Y')
+                        ->time('H:i')
+                        ->native(false),
+                        Forms\Components\Toggle::make('contactOk')
+                        ->label('Contact établi')
+                        ->default(false),
+                        Toggle::make('contactRefused')
+                        ->label('Contact refusé')
+                        ->default(false),
+                        Textarea::make('motivation_Refusal')
+                        ->rows(10)
+                        ->cols(20),                        
+                    ]),
                 Forms\Components\Toggle::make('isolement')
                     ->required(),
                 Forms\Components\Select::make('Salduz')
+                    ->options(
+                        ['A confirmer' => 'A confirmer',
+                        'Salduz 3' => 'Salduz 3', 
+                        'Salduz 4' => 'Salduz 4'])
                     ->required(),
                 Forms\Components\TextInput::make('DevRest')
                     ->required()

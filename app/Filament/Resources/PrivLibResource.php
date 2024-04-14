@@ -22,7 +22,7 @@ class PrivLibResource extends Resource
     protected static ?string $pluralModelLabel = 'Types de privation de liberté';
 
     protected static ?string $navigationLabel = 'Type(s) de P.L.';
-    protected static ?string $navigationGroup = 'Configuration';
+    protected static ?string $navigationGroup = 'Gestion de la détention';
     protected static ?string $navigationBadgeTooltip = 'Liste des types de privation de liberté et gestion';
 
     public static function getNavigationBadge(): ?string

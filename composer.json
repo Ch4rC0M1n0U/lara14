@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "awcodes/shout": "^2.0",
         "bezhansalleh/filament-shield": "^3.2",
         "doctrine/dbal": "^3.8",
         "filament/filament": "^3.2",
@@ -19,6 +20,7 @@
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.0",
         "power-components/livewire-powergrid": "^5.4",
+        "saade/filament-fullcalendar": "^3.0",
         "spatie/laravel-settings": "^3.3",
         "tallstackui/tallstackui": "^1.20"
     },

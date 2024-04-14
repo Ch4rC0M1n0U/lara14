@@ -33,8 +33,7 @@ class CellResource extends Resource
     protected static ?string $pluralModelLabel = 'Cellules';
 
     protected static ?string $navigationLabel = 'Cellule(s)';
-    protected static ?string $navigationGroup = 'Configuration';
-    protected static ?string $navigationBadgeTooltip = 'Liste des cellules et gestion';
+    protected static ?string $navigationGroup = 'Gestion de la détention';
 
     public static function getNavigationBadge(): ?string
     {
