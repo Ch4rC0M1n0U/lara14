@@ -39,6 +39,6 @@ class TrustedContact extends Model
         'motivation_Refusal' => 'array',
     ];
 
-    
-    
+
+
 }

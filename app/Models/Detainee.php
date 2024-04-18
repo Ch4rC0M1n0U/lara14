@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -67,9 +66,9 @@ class Detainee extends Model
         'Audition' => 'boolean',
         'PrintTrypt' => 'boolean',
         'SurvCam' => 'boolean',
-        'isolement' => 'boolean',   
+        'isolement' => 'boolean',
         'Avocate' => 'boolean',
-        'ProhiValImp' => 'boolean',     
+        'ProhiValImp' => 'boolean',
     ];
 
     protected $boolean = [

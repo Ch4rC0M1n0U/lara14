@@ -17,7 +17,6 @@ use Filament\Forms\Components\Section;
 use Filament\Support\Enums\ActionSize;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ViewAction;
-use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Tables\Actions\ActionGroup;
@@ -81,7 +80,7 @@ class CellResource extends Resource
                                 ->required()
                                 ->numeric(),
                             Hidden::make('CellRest')
-                            ->default(fn(Get $get): int => $get('CellMax')),
+                            ->default(fn (Get $get): int => $get('CellMax')),
                         ]),
                         Section::make([
                             Toggle::make('CellMinor')
@@ -102,8 +101,8 @@ class CellResource extends Resource
                         ])->grow(false),
                     ])->from('md'),
                 ])->columns(1)
-                ;
-                
+        ;
+
     }
 
     public static function table(Table $table): Table
@@ -228,6 +227,13 @@ class CellResource extends Resource
             //'create' => Pages\CreateCell::route('/create'),
             //'view' => Pages\ViewCell::route('/{record}'),
             //'edit' => Pages\EditCell::route('/{record}/edit'),
+        ];
+    }
+
+    public static function getWidgets(): array
+    {
+        return [
+            CellResource\Widgets\CellOverview::class,
         ];
     }
 }

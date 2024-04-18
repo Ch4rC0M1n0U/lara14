@@ -5,27 +5,13 @@ namespace App\Filament\Resources;
 use Filament\Forms;
 use Filament\Tables;
 use App\Models\Service;
-use Filament\Forms\Get;
-use Filament\Forms\Set;
 use Filament\Forms\Form;
-use Pages\CreateService;
 use Filament\Tables\Table;
-use Filament\Actions\Action;
 use Filament\Resources\Resource;
-use Dotswan\MapPicker\Fields\Map;
-use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Split;
-use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Fieldset;
-use Filament\Tables\Columns\IconColumn;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Placeholder;
 use App\Filament\Resources\ServiceResource\Pages;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\ServiceResource\RelationManagers;
-
 
 class ServiceResource extends Resource
 {
@@ -77,7 +63,7 @@ class ServiceResource extends Resource
                     Forms\Components\TextInput::make('zip')
                         ->label('Code Postal')
                         ->nullable(),
-                   
+
                     Fieldset::make('Contact')
                         ->schema([
                     Forms\Components\TextInput::make('phone')
@@ -166,11 +152,11 @@ class ServiceResource extends Resource
                     ->icon('heroicon-o-at-symbol')
                     ->label('Courriel')
                     ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: false),                    
+                    ->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('contact')
                     ->searchable()
                     ->label('Personne de contact')
-                    ->toggleable(isToggledHiddenByDefault: false),                    
+                    ->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('hierarchy')
                     ->searchable()
                     ->label('Responsable Hiérararchique')

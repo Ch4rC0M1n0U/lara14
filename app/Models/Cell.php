@@ -14,7 +14,7 @@ class Cell extends Model
         'CellType',
         'CellMax',
         'CellMinor',
-        'CellStat', 
+        'CellStat',
         'CellRest'
         ];
 
