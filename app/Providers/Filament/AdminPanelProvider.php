@@ -5,13 +5,14 @@ namespace App\Providers\Filament;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\Widgets;
-use App\Filament\Widgets\UserOverview;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
 use Filament\Support\Enums\MaxWidth;
+use App\Filament\Widgets\UserOverview;
 use Filament\Http\Middleware\Authenticate;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
 use Illuminate\Session\Middleware\StartSession;
+use Tapp\FilamentMailLog\FilamentMailLogPlugin;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
@@ -19,7 +20,11 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
+use Bytexr\QueueableBulkActions\QueueableBulkActionsPlugin;
+use Edwink\FilamentUserActivity\FilamentUserActivityPlugin;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
+use Tapp\FilamentAuthenticationLog\FilamentAuthenticationLogPlugin;
+use ShuvroRoy\FilamentSpatieLaravelBackup\FilamentSpatieLaravelBackupPlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -57,6 +62,9 @@ class AdminPanelProvider extends PanelProvider
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->plugins([
+                FilamentAuthenticationLogPlugin::make(),
+                FilamentSpatieLaravelBackupPlugin::make(),
+                FilamentMailLogPlugin::make(),
                 \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make(),
                 BreezyCore::make()
                 ->avatarUploadComponent(fn ($fileUpload) => $fileUpload->disableLabel())
@@ -95,6 +103,10 @@ class AdminPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
+            ])
+
+            ->resources([
+                config('filament-logger.activity_resource')
             ])
 
             ->authMiddleware([

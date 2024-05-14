@@ -12,8 +12,6 @@ Route::get('/test', function () {
 
 Route::get('/demo/{id}', [DemoController::class, "voir"]);
 
-
-
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

@@ -40,6 +40,11 @@
                 {{ $slot }}
             </main>
         </div>
+        @livewire('notifications')
+
+        @livewire('database-notifications')
+
+
 
         @stack('modals')
 

@@ -9,6 +9,7 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Tables\Actions\Action;
+use Filament\Tables\Grouping\Group;
 use Filament\Forms\Components\Split;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
@@ -158,6 +159,13 @@ class CellResource extends Resource
                     }),
 
             ])
+
+            ->groups([
+                Group::make('CellStat')
+                    ->label('Statut des cellules'),
+                Group::make('CellType')
+                ->label('Type des cellules')
+            ])->defaultGroup('CellStat')
 
             ->filters([
                     //

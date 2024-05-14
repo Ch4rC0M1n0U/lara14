@@ -50,4 +50,8 @@
     .fi-sidebar-group-label {
         @apply !text-light-blue-900;
     }
+
+    .fi-fo-date-time-picker-panel {
+        @apply !bg-gradient-to-r from-blue-gray-600 to-blue-gray-200 !shadow-lg;
+    }
 }

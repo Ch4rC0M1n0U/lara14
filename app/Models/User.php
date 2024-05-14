@@ -12,6 +12,7 @@ use Illuminate\Notifications\Notifiable;
 use BezhanSalleh\FilamentShield\Traits\HasPanelShield;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Rappasoft\LaravelAuthenticationLog\Traits\AuthenticationLoggable;
 use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable as TraitsTwoFactorAuthenticatable;
 
 class User extends Authenticatable
@@ -25,6 +26,7 @@ class User extends Authenticatable
     use HasPanelShield;
     use HasAvatars;
     use HasProfilePhoto;
+    use Notifiable, AuthenticationLoggable;
 
     /**
      * The attributes that are mass assignable.

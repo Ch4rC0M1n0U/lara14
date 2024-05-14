@@ -30,6 +30,17 @@ class Detainee extends Model
         return $this->belongsTo(TrustedContact::class);
     }
 
+    public function Notice(): BelongsTo
+    {
+        return $this->belongsTo(Notice::class);
+    }
+
+    public function Contention(): BelongsTo
+    {
+        return $this->belongsTo(Contention::class);
+    }
+
+
     protected $guarded = ['id'];
 
     protected $fillable = [
@@ -60,6 +71,7 @@ class Detainee extends Model
 
     protected $casts = [
         'birthdate' => 'date',
+        'DevRest' => 'array',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'isolement' => 'boolean',

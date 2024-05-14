@@ -31,7 +31,7 @@ return new class () extends Migration {
             $table->foreignId('priv_lib_id')
                 ->constrained()
                 ->NoActionOnUpdate()
-                ->NoActionOnDelete()
+                ->cascadeOnDelete()
                 ->required();
             $table->string('SSType')
                 ->nullable();
@@ -43,7 +43,7 @@ return new class () extends Migration {
             $table->foreignId('trusted_contact_id')
                 ->constrained()
                 ->NoActionOnUpdate()
-                ->NoActionOnDelete()
+                ->cascadeOnDelete()
                 ->nullable();
             $table->boolean('isolement')
                 ->default(false);
@@ -56,18 +56,18 @@ return new class () extends Migration {
             $table->foreignId('notice_id')
                 ->constrained()
                 ->NoActionOnUpdate()
-                ->NoActionOnDelete()
+                ->cascadeOnDelete()
                 ->nullable();
             $table->string('user_created')
                 ->nullable();
-            $table->boolean('Audition')
-                ->default(false);
-            $table->boolean('PrintTrypt')
-                ->default(false);
+            $table->string('Audition')
+                ->nullable();
+            $table->string('PrintTrypt')
+                ->nullable();
             $table->foreignId('contention_id')
                 ->constrained()
                 ->NoActionOnUpdate()
-                ->NoActionOnDelete()
+                ->cascadeOnDelete()
                 ->nullable();
             $table->string('bac')
                 ->nullable();
@@ -76,7 +76,7 @@ return new class () extends Migration {
             $table->foreignId('incident_id')
                 ->constrained()
                 ->NoActionOnUpdate()
-                ->NoActionOnDelete()
+                ->cascadeOnDelete()
                 ->nullable();
             $table->string('EqCharge')
                 ->nullable();
@@ -84,12 +84,12 @@ return new class () extends Migration {
                 ->default(false);
             $table->boolean('ProhiValImp')
                 ->default(false);
-            $table->boolean('SurvCam')
-                ->default(false);
+            $table->string('SurvCam')
+                ->nullable();
             $table->foreignId('medical_id')
                 ->constrained()
                 ->NoActionOnUpdate()
-                ->NoActionOnDelete()
+                ->cascadeOnDelete()
                 ->nullable();
         });
     }

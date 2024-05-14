@@ -13,10 +13,14 @@ return new class () extends Migration {
         Schema::create('notices', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('person_noticed');
-            $table->string('typePerson');
-            $table->dateTime('Notice_DateHour');
-            $table->string('canal');
+            $table->string('person_noticed')
+                ->nullable(true);
+            $table->string('typePerson')
+                ->nullable(true);
+            $table->dateTime('Notice_DateHour')
+                ->nullable(true);
+            $table->string('Canal_Notice')
+                ->nullable(true);
         });
     }
 
