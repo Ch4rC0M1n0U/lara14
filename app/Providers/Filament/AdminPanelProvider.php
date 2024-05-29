@@ -63,7 +63,6 @@ class AdminPanelProvider extends PanelProvider
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->plugins([
                 FilamentAuthenticationLogPlugin::make(),
-                FilamentSpatieLaravelBackupPlugin::make(),
                 FilamentMailLogPlugin::make(),
                 \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make(),
                 BreezyCore::make()
