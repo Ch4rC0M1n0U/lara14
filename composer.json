@@ -10,6 +10,7 @@
         "bezhansalleh/filament-shield": "^3.2",
         "bytexr/filament-queueable-bulk-actions": "^0.3.1",
         "doctrine/dbal": "^3.8",
+        "dutchcodingcompany/filament-developer-logins": "^1.2",
         "filament/filament": "^3.2",
         "filament/spatie-laravel-settings-plugin": "^3.2",
         "flowframe/laravel-trend": "^0.2.0",
@@ -29,6 +30,7 @@
         "tapp/filament-invite": "^1.0",
         "tapp/filament-maillog": "^1.0",
         "torann/geoip": "^3.0",
+        "xtend-packages/rest-presenter": "^1.0.0",
         "z3d0x/filament-logger": "^0.7.1"
     },
     "require-dev": {

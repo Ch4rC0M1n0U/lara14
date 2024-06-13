@@ -23,8 +23,11 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Bytexr\QueueableBulkActions\QueueableBulkActionsPlugin;
 use Edwink\FilamentUserActivity\FilamentUserActivityPlugin;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
+use InvadersXX\FilamentGridstackDashboard\GridstackDashboardPlugin;
 use Tapp\FilamentAuthenticationLog\FilamentAuthenticationLogPlugin;
 use ShuvroRoy\FilamentSpatieLaravelBackup\FilamentSpatieLaravelBackupPlugin;
+use DutchCodingCompany\FilamentDeveloperLogins\FilamentDeveloperLoginsPlugin;
+use SebastianBergmann\Type\FalseType;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -62,6 +65,13 @@ class AdminPanelProvider extends PanelProvider
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->plugins([
+                FilamentDeveloperLoginsPlugin::make()
+                ->enabled(app()->environment('local'))
+                ->switchable(false) // This also accepts a closure.
+                ->users([
+                    'Admin' => 'admin@police.belgium.eu',
+                    'User' => 'hurugur@mailinator.com',
+                ]),
                 FilamentAuthenticationLogPlugin::make(),
                 FilamentMailLogPlugin::make(),
                 \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make(),
