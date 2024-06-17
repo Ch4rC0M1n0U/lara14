@@ -15,9 +15,6 @@ class CellOverview extends BaseWidget
             Stat::make('Cellules', Cell::count())
             ->description('Nombre total de cellules enregistrés')
             ->descriptionIcon('heroicon-o-table-cells', IconPosition::Before),
-            Stat::make('Cellules', Cell::where('CellStat ', 'Libre')->count())
-            ->description('Nombre total de cellules libre')
-            ->descriptionIcon('heroicon-o-table-cells', IconPosition::Before),
         ];
     }
 }
