@@ -9,6 +9,7 @@
 .env.backup
 .env.production
 .phpunit.result.cache
+.vercel
 Homestead.json
 Homestead.yaml
 auth.json
