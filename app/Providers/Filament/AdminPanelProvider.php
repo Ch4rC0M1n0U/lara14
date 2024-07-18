@@ -6,8 +6,10 @@ use Filament\Pages;
 use Filament\Panel;
 use Filament\Widgets;
 use Filament\PanelProvider;
+use Kenepa\Banner\BannerPlugin;
 use Filament\Support\Colors\Color;
 use Filament\Support\Enums\MaxWidth;
+use SebastianBergmann\Type\FalseType;
 use App\Filament\Widgets\UserOverview;
 use Filament\Http\Middleware\Authenticate;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
@@ -27,7 +29,6 @@ use InvadersXX\FilamentGridstackDashboard\GridstackDashboardPlugin;
 use Tapp\FilamentAuthenticationLog\FilamentAuthenticationLogPlugin;
 use ShuvroRoy\FilamentSpatieLaravelBackup\FilamentSpatieLaravelBackupPlugin;
 use DutchCodingCompany\FilamentDeveloperLogins\FilamentDeveloperLoginsPlugin;
-use SebastianBergmann\Type\FalseType;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -72,6 +73,9 @@ class AdminPanelProvider extends PanelProvider
                     'Admin' => 'admin@police.belgium.eu',
                     'User' => 'hurugur@mailinator.com',
                 ]),
+                BannerPlugin::make()
+                ->persistsBannersInDatabase()
+                ->bannerManagerAccessPermission('banner-manager'),
                 FilamentAuthenticationLogPlugin::make(),
                 FilamentMailLogPlugin::make(),
                 \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make(),
