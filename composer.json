@@ -5,7 +5,7 @@
     "keywords": ["laravel", "framework", "CRUD", "Pegasus", "ZP CHARLEROI"],
     "license": "MIT",
     "require": {
-        "php": "^8.2",
+        "php": "^8.0",
         "awcodes/shout": "^2.0",
         "bezhansalleh/filament-shield": "^3.2",
         "bytexr/filament-queueable-bulk-actions": "^0.3.1",
