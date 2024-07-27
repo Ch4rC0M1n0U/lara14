@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'nav.group' => 'Configuration',
+
     'tabs' => [
         'general' => 'General',
         'styling' => 'Styling',

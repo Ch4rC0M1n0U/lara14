@@ -22,6 +22,7 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
+use Okeonline\FilamentArchivable\FilamentArchivablePlugin;
 use Bytexr\QueueableBulkActions\QueueableBulkActionsPlugin;
 use Edwink\FilamentUserActivity\FilamentUserActivityPlugin;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
@@ -66,6 +67,7 @@ class AdminPanelProvider extends PanelProvider
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->plugins([
+                FilamentArchivablePlugin::make(),
                 FilamentDeveloperLoginsPlugin::make()
                 ->enabled(app()->environment('local'))
                 ->switchable(false) // This also accepts a closure.

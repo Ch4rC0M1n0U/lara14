@@ -7,6 +7,7 @@ export default {
         './resources/views/filament/**/*.blade.php',
         './vendor/filament/**/*.blade.php',
         './vendor/kenepa/banner/resources/**/*.php',
+        './vendor/guava/calendar/resources/**/*.blade.php',
 
     ],
     theme: {

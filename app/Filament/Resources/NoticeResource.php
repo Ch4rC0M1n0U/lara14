@@ -16,6 +16,9 @@ use Filament\Forms\Components\DateTimePicker;
 use App\Filament\Resources\NoticeResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\NoticeResource\RelationManagers;
+use Okeonline\FilamentArchivable\Tables\Actions\ArchiveAction;
+use Okeonline\FilamentArchivable\Tables\Filters\ArchivedFilter;
+use Okeonline\FilamentArchivable\Tables\Actions\UnArchiveAction;
 
 class NoticeResource extends Resource
 {
@@ -83,12 +86,14 @@ class NoticeResource extends Resource
                     ->searchable(),
             ])
             ->filters([
-                //
+                ArchivedFilter::make(),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
+                ArchiveAction::make(),
+                UnArchiveAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
