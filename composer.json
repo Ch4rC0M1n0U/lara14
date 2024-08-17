@@ -65,7 +65,6 @@
     },
     "scripts": {
         "post-autoload-dump": [
-            "@php artisan package:discover --ansi",
             "@php artisan filament:upgrade"
         ],
         "post-update-cmd": [
