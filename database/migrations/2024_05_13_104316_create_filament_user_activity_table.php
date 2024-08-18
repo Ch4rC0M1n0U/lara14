@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create(strval(config("filament-user-activity.table.name")), function (Blueprint $table) {
+        Schema::create(strval(config("filament_user_activity.table.name")), function (Blueprint $table) {
             $table->id();
 
             $table->unsignedInteger("user_id")->nullable();
@@ -20,6 +20,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists(strval(config("filament-user-activity.table.name")));
+        Schema::dropIfExists(strval(config("filament_user_activity.table.name")));
     }
 };
