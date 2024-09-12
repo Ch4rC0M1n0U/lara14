@@ -11,6 +11,7 @@
         "bytexr/filament-queueable-bulk-actions": "^0.3.1",
         "doctrine/dbal": "^3.8",
         "dotswan/filament-laravel-pulse": "^1.0",
+        "dotswan/filament-map-picker": "^1.2",
         "dutchcodingcompany/filament-developer-logins": "^1.2",
         "filament/filament": "^3.2",
         "filament/spatie-laravel-settings-plugin": "^3.2",

@@ -22,6 +22,8 @@ class Service extends Model
     'h24',
     'contact',
     'hierarchy',
+    'latitude',
+    'longitude',
     ];
 
     public function detainees(): HasMany

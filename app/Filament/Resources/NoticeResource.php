@@ -26,6 +26,11 @@ class NoticeResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function getBreadcrumb(): string
+    {
+        return 'Gestion des détenus';
+    }
+
     public static function form(Form $form): Form
     {
         return $form

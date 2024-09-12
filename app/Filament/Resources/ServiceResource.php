@@ -8,9 +8,11 @@ use App\Models\Service;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use Dotswan\MapPicker\Fields\Map;
 use Filament\Forms\Components\Split;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Fieldset;
+use Filament\Forms\Set;
 use App\Filament\Resources\ServiceResource\Pages;
 
 class ServiceResource extends Resource
@@ -32,7 +34,7 @@ class ServiceResource extends Resource
 
     public static function getBreadcrumb(): string
     {
-        return 'Gestion des Cellules';
+        return 'Gestion des services';
     }
 
     public static function form(Form $form): Form

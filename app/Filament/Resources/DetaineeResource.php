@@ -37,14 +37,15 @@ class DetaineeResource extends Resource
     protected static ?string $modelLabel = 'Détenu';
     protected static ?string $pluralModelLabel = 'Détenus';
 
-
-
+    public static function getBreadcrumb(): string
+    {
+        return 'Gestion des détenus';
+    }
 
     public static function getNavigationBadge(): ?string
     {
         return static::getModel()::count();
     }
-
 
     public static function form(Form $form): Form
     {
@@ -98,7 +99,7 @@ class DetaineeResource extends Resource
                                     ['Personne malade' => 'Personne malade',
                                     'Ivresse publique' => 'Ivresse publique',
                                     'Trouble de l\'OP' => 'Trouble de l\'OP',
-                                    'Rebéllion' => 'Rebéllion',
+                                    'Rébellion' => 'Rébellion',
                                     'Maladie Transmissible' => 'Maladie Transmissible',
                                     'Antécédents' => 'Antécédents',
                                     'E.D.S.' => 'E.D.S.',
