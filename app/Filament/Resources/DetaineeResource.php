@@ -553,7 +553,6 @@ class DetaineeResource extends Resource
 
                 TextInput::make('user_created')
                         ->required()
-                        ->default(auth()->user()->name)
                         ->maxLength(255)
                         ->hidden(),
 

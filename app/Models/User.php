@@ -6,14 +6,10 @@ namespace App\Models;
 
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Jetstream\HasProfilePhoto;
-use Spatie\Permission\Traits\HasRoles;
 use Filament\Panel\Concerns\HasAvatars;
 use Illuminate\Notifications\Notifiable;
-use BezhanSalleh\FilamentShield\Traits\HasPanelShield;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Rappasoft\LaravelAuthenticationLog\Traits\AuthenticationLoggable;
-use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable as TraitsTwoFactorAuthenticatable;
 
 class User extends Authenticatable
 {
@@ -21,14 +17,11 @@ class User extends Authenticatable
     use HasFactory;
     use HasProfilePhoto;
     use Notifiable;
-    use TraitsTwoFactorAuthenticatable;
-    use HasRoles;
-    use HasPanelShield;
     use HasAvatars;
     use HasProfilePhoto;
-    use Notifiable, AuthenticationLoggable;
 
     /**
+     * 
      * The attributes that are mass assignable.
      *
      * @var array<int, string>

@@ -12,7 +12,6 @@ use Filament\Support\Enums\MaxWidth;
 use SebastianBergmann\Type\FalseType;
 use App\Filament\Widgets\UserOverview;
 use Filament\Http\Middleware\Authenticate;
-use Jeffgreco13\FilamentBreezy\BreezyCore;
 use Illuminate\Session\Middleware\StartSession;
 use Tapp\FilamentMailLog\FilamentMailLogPlugin;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -27,7 +26,6 @@ use Bytexr\QueueableBulkActions\QueueableBulkActionsPlugin;
 use Edwink\FilamentUserActivity\FilamentUserActivityPlugin;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use InvadersXX\FilamentGridstackDashboard\GridstackDashboardPlugin;
-use Tapp\FilamentAuthenticationLog\FilamentAuthenticationLogPlugin;
 use ShuvroRoy\FilamentSpatieLaravelBackup\FilamentSpatieLaravelBackupPlugin;
 use DutchCodingCompany\FilamentDeveloperLogins\FilamentDeveloperLoginsPlugin;
 
@@ -78,21 +76,7 @@ class AdminPanelProvider extends PanelProvider
                 BannerPlugin::make()
                 ->persistsBannersInDatabase()
                 ->bannerManagerAccessPermission('banner-manager'),
-                FilamentAuthenticationLogPlugin::make(),
                 FilamentMailLogPlugin::make(),
-                \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make(),
-                BreezyCore::make()
-                ->avatarUploadComponent(fn ($fileUpload) => $fileUpload->disableLabel())
-                ->enableTwoFactorAuthentication(
-                    force: false, // force the user to enable 2FA before they can use the application (default = false)
-                )
-                ->myProfile(
-                    shouldRegisterUserMenu: true, // Sets the 'account' link in the panel User Menu (default = true)
-                    shouldRegisterNavigation: false, // Adds a main navigation item for the My Profile page (default = false)
-                    navigationGroup: 'Settings', // Sets the navigation group for the My Profile page (default = null)
-                    hasAvatars: true, // Enables the avatar upload form component (default = false)
-                    slug: 'my-profile' // Sets the slug for the profile page (default = 'my-profile')
-                ),
             ])
             ->pages([
                 Pages\Dashboard::class,
